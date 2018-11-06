@@ -93,10 +93,10 @@ public class Main {
     private static void createTable(String tableName) {
         boolean shouldUpdate = false;
         String sql = null;
-
+        s = getStatement();
         switch (tableName) {
             case "engine":
-                sql = "create table engine\n" +
+                sql = "create table if not exists engine\n" +
                         "(\n" +
                         "  e_model     VARCHAR(10) not null,\n" +
                         "  e_make      VARCHAR(10) not null,\n" +
@@ -108,7 +108,7 @@ public class Main {
                 shouldUpdate = true;
                 break;
             case "manufacturer":
-                sql = "create table manufacturer\n" +
+                sql = "create table if not exists manufacturer\n" +
                         "(\n" +
                         "  m_name   VARCHAR(10)    not null,\n" +
                         "  m_nation VARCHAR(10)    not null,\n" +
@@ -117,7 +117,7 @@ public class Main {
                 shouldUpdate = true;
                 break;
             case "vehicle":
-                sql = "create table vehicle\n" +
+                sql = "create table if not exists vehicle\n" +
                         "(\n" +
                         "  v_vin     VARCHAR(40)   not null,\n" +
                         "  v_license VARCHAR(10)   not null,\n" +
@@ -130,7 +130,7 @@ public class Main {
                 shouldUpdate = true;
                 break;
             case "wheels":
-                sql = "create table wheels\n" +
+                sql = "create table if not exists wheels\n" +
                         "(\n" +
                         "  w_model       e_hs BOOLEAN not null,\n" +
                         "  e_leather     BOOLEAN      not null,\n" +
@@ -159,7 +159,7 @@ public class Main {
     private static void dropTable(String tableName) {
         String sql = null;
         boolean run = false;
-
+        s =  getStatement();
         switch (tableName) {
             case "engine":
                 sql  = "drop table engine";
