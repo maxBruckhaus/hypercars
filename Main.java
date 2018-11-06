@@ -26,7 +26,7 @@ public class Main {
         String tableName;
         switch (s) {
             case "connect":
-                0
+                c = getConnection();
                 break;
             case "create table":
                 // Create TABLE
@@ -37,7 +37,7 @@ public class Main {
             case "insert table":
                 // Insert to TABLE
                 tableName = input.nextLine();
-                insertTable(tableName);
+                insertToTable(tableName);
                 break;
             case "1":
 
@@ -64,25 +64,78 @@ public class Main {
     }
 
     private static void createTable(String tableName) {
+
+        String sql;
         switch (tableName) {
             case "engine":
-                createEngineTable;
+                sql = "create table engine\n" +
+                        "(\n" +
+                        "  e_model     VARCHAR(10) not null,\n" +
+                        "  e_make      VARCHAR(10) not null,\n" +
+                        "  e_cylinders DECIMAL(1)  not null,\n" +
+                        "  e_hp        DECIMAL(10) not null,\n" +
+                        "  e_torque    DECIMAL(10) not null,\n" +
+                        "  e_size      DECIMAL(10) not null\n" +
+                        ");";
                 break;
             case "manufacturer":
-                createManufacturerTable();
+                sql = "create table manufacturer\n" +
+                        "(\n" +
+                        "  m_name   VARCHAR(10)    not null,\n" +
+                        "  m_nation VARCHAR(10)    not null,\n" +
+                        "  m_sales  DECIMAL(10, 2) not null\n" +
+                        ");\n";
                 break;
             case "vehicle":
-                createVehicleTable();
+                sql = "create table vehicle\n" +
+                        "(\n" +
+                        "  v_vin     VARCHAR(40)   not null,\n" +
+                        "  v_license VARCHAR(10)   not null,\n" +
+                        "  v_year    DECIMAL(3)    not null,\n" +
+                        "  v_make    VARCHAR(10)   not null,\n" +
+                        "  v_model   VARCHAR(10)   not null,\n" +
+                        "  v_color   VARCHAR(10)   not null,\n" +
+                        "  v_price   DECIMAL(7, 2) not null\n" +
+                        ");";
                 break;
             case "wheels":
-                createWheelsTable();
+                sql = "create table wheels\n" +
+                        "(\n" +
+                        "  w_model       e_hs BOOLEAN not null,\n" +
+                        "  e_leather     BOOLEAN      not null,\n" +
+                        "  e_turbo       BOOLEAN      not null,\n" +
+                        "  e_spoiler     BOOLEAN      not null,\n" +
+                        "  e_tint        BOOLEAN      not null,\n" +
+                        "  e_convertible BOOLEAN      not null\n" +
+                        ");";
                 break;
             default:
                 System.out.println("Table Schema not in library");
                 break;
+        }
+        s.executeUpdate(sql);
+    }
 
+    private static void insertToTable(String tableName) {
+        switch (tableName) {
+            case "engine":
+                insertEngineTable();
+                break;
+            case "manufacturer":
+                insertManufacturerTable();
+                break;
+            case "vehicle":
+                insertVehicleTable();
+                break;
+            case "wheels":
+                insertWheelsTable();
+                break;
+            default:
+                System.out.println("Table Schema not in library");
+                break;
         }
     }
+
 
     private static Connection getConnection() {
         String url = "jdbc:sqlite:/Users/marioortega/CS/sqlite3/CSE111/DatabaseServer/project/hyperWhips.db";
