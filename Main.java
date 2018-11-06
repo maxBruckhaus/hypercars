@@ -8,6 +8,7 @@ public class Main {
     Connection c = null;
     private static Statement s = null;
     private static boolean connected = false;
+    private static boolean closing = false;
 
 
     public static void main(String[] args) {
@@ -20,13 +21,14 @@ public class Main {
 
     private static void displayMenu(int page) {
         System.out.println("Command List: ");
-        System.out.println("\t connect: Connect to hypercar table");
+        if (!connected)
+            System.out.println("\t connect: Connect to hypercar table");
         System.out.println("\t create table: To create a table");
         System.out.println("\t insert table: To insert to a table");
         System.out.println("\t drop table: To drop a table");
         System.out.println("\t #: Enter number to run a query ONLY 1-20 Permited");
+        System.out.print("$ ");
     }
-
 
     private static void runQuery(String s) {
         Scanner input = new Scanner(System.in);
@@ -37,6 +39,7 @@ public class Main {
                 break;
             case "create table":
                 // Create TABLE
+                System.out.println("engine, manufacturer, transmission, vehicle");
                 System.out.print("Enter table Name: ");
                 tableName = input.nextLine();
                 createTable(tableName);
@@ -73,6 +76,7 @@ public class Main {
                 break;
         }
         System.out.println("Do you wanna run another query: y/n");
+        System.out.print("$ ");
         switch (input.nextLine()) {
             case "y":
                 displayMenu(1);
@@ -213,6 +217,21 @@ public class Main {
                 System.out.println("Table Schema not in library");
                 break;
         }
+    }
+
+    private static Statement getStatement() {
+        //System.out.println("Creating Statement");
+
+        //System.out.println("Created Statement from Connecting");
+        Statement s = null;
+        try {
+            // System.out.println("Connected");
+            connected = true;
+            s = c.createStatement();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return s;
     }
 
     private static Connection getConnection() {
