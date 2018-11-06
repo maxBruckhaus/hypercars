@@ -39,6 +39,10 @@ public class Main {
                 tableName = input.nextLine();
                 insertToTable(tableName);
                 break;
+            case "drop table":
+                tableName = input.nextLine();
+                dropTable(tableName);
+                break;
             case "1":
 
                 break;
@@ -117,6 +121,27 @@ public class Main {
     }
 
     private static void insertToTable(String tableName) {
+        String sql;
+        switch (tableName) {
+            case "engine":
+                sql = "drop table engine";
+                break;
+            case "manufacturer":
+                sql = "drop table manufacturer";
+                break;
+            case "vehicle":
+                sql = "drop table vehicle";
+                break;
+            case "wheels":
+                sql = "drop table wheels";
+                break;
+            default:
+                System.out.println("Table Schema not in library");
+                break;
+        }
+        s.executeUpdate(sql);
+    }
+    private static void dropTable(String tableName) {
         switch (tableName) {
             case "engine":
                 insertEngineTable();
