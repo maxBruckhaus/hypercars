@@ -76,6 +76,7 @@ public class Main {
         switch (input.nextLine()) {
             case "y":
                 displayMenu(1);
+                runQuery(input.nextLine());
                 break;
             case "n":
                 break;
