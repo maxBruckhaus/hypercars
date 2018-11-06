@@ -8,20 +8,27 @@ public class Main {
     Connection c = null;
     private static Statement s = null;
     private static boolean connected = false;
-    String url = null;
 
 
     public static void main(String[] args) {
         c = getConnection();
-
-        try {
-            c.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        Scanner input = new Scanner(System.in);
+        displayMenu(1);
+        runQuery(input.nextLine());
+        closeConnection();
     }
 
-    private static void runQuery(String s) throws SQLException, ClassNotFoundException {
+    private static void displayMenu(int page) {
+        System.out.println("Command List: ");
+        System.out.println("\t connect: Connect to hypercar table");
+        System.out.println("\t create table: To create a table");
+        System.out.println("\t insert table: To insert to a table");
+        System.out.println("\t drop table: To drop a table");
+        System.out.println("\t #: Enter number to run a query ONLY 1-20 Permited");
+    }
+
+
+    private static void runQuery(String s) {
         Scanner input = new Scanner(System.in);
         String tableName;
         switch (s) {
@@ -65,11 +72,23 @@ public class Main {
                 System.out.println("Wrong Query Switch");
                 break;
         }
+        System.out.println("Do you wanna run another query: y/n");
+        switch (input.nextLine()) {
+            case "y":
+                displayMenu(1);
+                break;
+            case "n":
+                break;
+
+            default:
+                break;
+        }
     }
 
     private static void createTable(String tableName) {
+        boolean shouldUpdate = false;
+        String sql = null;
 
-        String sql;
         switch (tableName) {
             case "engine":
                 sql = "create table engine\n" +
@@ -81,6 +100,7 @@ public class Main {
                         "  e_torque    DECIMAL(10) not null,\n" +
                         "  e_size      DECIMAL(10) not null\n" +
                         ");";
+                shouldUpdate = true;
                 break;
             case "manufacturer":
                 sql = "create table manufacturer\n" +
@@ -89,6 +109,7 @@ public class Main {
                         "  m_nation VARCHAR(10)    not null,\n" +
                         "  m_sales  DECIMAL(10, 2) not null\n" +
                         ");\n";
+                shouldUpdate = true;
                 break;
             case "vehicle":
                 sql = "create table vehicle\n" +
@@ -101,6 +122,7 @@ public class Main {
                         "  v_color   VARCHAR(10)   not null,\n" +
                         "  v_price   DECIMAL(7, 2) not null\n" +
                         ");";
+                shouldUpdate = true;
                 break;
             case "wheels":
                 sql = "create table wheels\n" +
@@ -112,55 +134,85 @@ public class Main {
                         "  e_tint        BOOLEAN      not null,\n" +
                         "  e_convertible BOOLEAN      not null\n" +
                         ");";
+                shouldUpdate = true;
                 break;
             default:
                 System.out.println("Table Schema not in library");
                 break;
         }
-        s.executeUpdate(sql);
+
+        if (shouldUpdate) {
+            try {
+                s.executeUpdate(sql);
+            } catch (SQLException e) {
+                System.out.println("Failed to Create Table");
+                e.printStackTrace();
+            }
+        }
     }
 
-    private static void insertToTable(String tableName) {
-        String sql;
+    private static void dropTable(String tableName) {
+        String sql = null;
+        boolean run = false;
+
         switch (tableName) {
             case "engine":
-                sql = "drop table engine";
+                sql  = "drop table engine";
+                run = true;
                 break;
             case "manufacturer":
                 sql = "drop table manufacturer";
+                run = true;
                 break;
             case "vehicle":
                 sql = "drop table vehicle";
+                run = true;
                 break;
             case "wheels":
                 sql = "drop table wheels";
+                run = true;
                 break;
             default:
                 System.out.println("Table Schema not in library");
                 break;
         }
-        s.executeUpdate(sql);
-    }
-    private static void dropTable(String tableName) {
-        switch (tableName) {
-            case "engine":
-                insertEngineTable();
-                break;
-            case "manufacturer":
-                insertManufacturerTable();
-                break;
-            case "vehicle":
-                insertVehicleTable();
-                break;
-            case "wheels":
-                insertWheelsTable();
-                break;
-            default:
-                System.out.println("Table Schema not in library");
-                break;
+
+        if (run) {
+            try {
+                s.executeUpdate(sql);
+            } catch (SQLException e) {
+                System.out.println("Failed to drop table");
+                e.printStackTrace();
+            }
         }
     }
 
+    private static void insertToTable(String tableName) {
+        String sql = null;
+        boolean run = false;
+
+        switch (tableName) {
+            case "engine":
+                sql  = "insert into engine (e_model, e_make, e_cylinders, e_hp,  e_torque, e_size) value (?,?,?,?,?,?);";
+                run = true;
+                break;
+            case "manufacturer":
+                sql = "";
+                run = true;
+                break;
+            case "vehicle":
+                sql = "";
+                run = true;
+                break;
+            case "wheels":
+                sql = "";
+                run = true;
+                break;
+            default:
+                System.out.println("Table Schema not in library");
+                break;
+        }
+    }
 
     private static Connection getConnection() {
         String url = "jdbc:sqlite:/Users/marioortega/CS/sqlite3/CSE111/DatabaseServer/project/hyperWhips.db";
@@ -182,8 +234,15 @@ public class Main {
         }
     }
 
-    private static void closeConnection() throws SQLException {
-        if (c != null) c.close();
+    private static void closeConnection() {
+        if (c != null) {
+            try {
+                c.close();
+            } catch (SQLException e) {
+                System.out.println("Failed to Close Connection");
+                e.printStackTrace();
+            }
+        }
         //System.out.println("Closed Connection");
     }
 }
