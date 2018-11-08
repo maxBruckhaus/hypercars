@@ -47,13 +47,13 @@ CREATE TABLE IF NOT EXISTS manufacturer (
 );
 
 CREATE TABLE IF NOT EXISTS extras (
-    e_vin         VARCHAR (40)   NOT NULL,
-    e_heated      BOOLEAN        NOT NULL,
-    e_leather     BOOLEAN        NOT NULL,
-    e_turbo       BOOLEAN        NOT NULL,
-    e_spoiler     BOOLEAN        NOT NULL,
-    e_tint        BOOLEAN        NOT NULL,
-    e_convertible BOOLEAN        NOT NULL
+    ex_vin         VARCHAR (40)   NOT NULL,
+    ex_heated      BOOLEAN        NOT NULL,
+    ex_leather     BOOLEAN        NOT NULL,
+    ex_turbo       BOOLEAN        NOT NULL,
+    ex_spoiler     BOOLEAN        NOT NULL,
+    ex_tint        BOOLEAN        NOT NULL,
+    ex_convertible BOOLEAN        NOT NULL
 );
 -- https://vingenerator.org/brand
 INSERT INTO vehicle
@@ -228,7 +228,7 @@ INSERT INTO manufacturer
 	("Bentley", "UNITED KINGDOM", 867708422);
 
 INSERT INTO extras
-	(e_vin, e_heated, e_leather, e_turbo, e_spoiler, e_tint, e_convertible) VALUES
+	(ex_vin, ex_heated, ex_leather, ex_turbo, ex_spoiler, ex_tint, ex_convertible) VALUES
 	("JH4KA2650HC000268", 0, 0, 0, 0, 0, 1),
 	("4JGBB86E27A199749", 0, 0, 1, 1, 0, 0),
 	("3B7HF13Y81G193584", 0, 0, 0, 1, 0, 1),
@@ -257,3 +257,36 @@ INSERT INTO extras
 	("SCBBP9ZA0AC062683", 1, 0, 1, 1, 1, 1),
 	("SCBBB7ZH1EC118746", 0, 1, 0, 0, 0, 0),
 	("SCBCR63W55C024793", 0, 1, 1, 0, 0, 1);
+
+--"List all makers with vehicles costing moore than 100000"
+SELECT DISTINCT(m_name) FROM vehicle, manufacturer
+WHERE v_make = m_name AND
+        v_price > 100000
+
+
+--List all the convertible cars that have at least
+SELECT v_vin
+FROM vehicle, manufacturer, extras
+WHERE v_make = m_name AND
+	a_ = 1 AND
+	v_vin = e_vin;
+
+--q2
+
+--q2
+
+--q2
+
+--q2
+
+--q2
+
+--q2
+
+--q2
+
+--q2
+
+--q2
+
+--q2
