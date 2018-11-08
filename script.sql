@@ -1,4 +1,4 @@
-CREATE TABLE vehicle (
+CREATE TABLE IF NOT EXISTS vehicle (
     v_vin     VARCHAR (40)   NOT NULL,
     v_license VARCHAR (10)   NOT NULL,
     v_year    DECIMAL (3)    NOT NULL,
@@ -25,27 +25,36 @@ CREATE TABLE IF NOT EXISTS engine (
     e_size      DECIMAL (10) NOT NULL
 );
 
-CREATE TABLE transmission (
+CREATE TABLE IF NOT EXISTS transmission (
     t_model VARCHAR (10) NOT NULL,
     t_gears DECIMAL (1)  NOT NULL,
     t_type  BOOLEAN      NOT NULL
 );
 
-CREATE TABLE wheels (
-    w_model       [E_HS BOOLEAN] NOT NULL,
+CREATE TABLE IF NOT EXISTS wheels (
+    w_model       VARCHAR (10)   NOT NULL,
+    w_make        VARCHAR (10)   NOT NULL,
+    w_height      DECIMAL (3)    NOT NULL,
+    w_width       DECIMAL (3)    NOT NULL,
+    w_rim         DECIMAL (3)    NOT NULL,
+    w_diameter    DECIMAL (3)    NOT NULL,
+);
+
+CREATE TABLE IF NOT EXISTS manufacturer (
+    m_name   VARCHAR (10)    NOT NULL,
+    m_nation VARCHAR (10)    NOT NULL,
+    m_sales  DECIMAL (10, 2) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS extras (
+    e_vin         VARCHAR (40)   NOT NULL,
+    e_heated      BOOLEAN        NOT NULL,
     e_leather     BOOLEAN        NOT NULL,
     e_turbo       BOOLEAN        NOT NULL,
     e_spoiler     BOOLEAN        NOT NULL,
     e_tint        BOOLEAN        NOT NULL,
     e_convertible BOOLEAN        NOT NULL
 );
-
-CREATE TABLE manufacturer (
-    m_name   VARCHAR (10)    NOT NULL,
-    m_nation VARCHAR (10)    NOT NULL,
-    m_sales  DECIMAL (10, 2) NOT NULL
-);
-
 -- https://vingenerator.org/brand
 INSERT INTO vehicle
         (v_vin, v_license, v_year, v_make, v_model, v_color, v_price) VALUES
@@ -139,41 +148,112 @@ INSERT INTO engine
 	("SXTCKS3V", "Bentley", "GN4WS", 12, 781, 5.3),
 	("LL7D6884", "Bentley", "XW9HN", 12, 568, 3.6),
 	("2WGW2ZJH", "Bentley", "AADF5", 12, 545, 2.7);
+
 INSERT INTO transmission
         (t_model, t_gears, t_type) VALUES
-	(136, 5, TRUE),
-	(201, 5, TRUE),
-	(216, 6, FALSE),
-	(156, 5, FALSE),
-	(272, 5, TRUE),
-	(296, 5, TRUE),
-	(207, 6, TRUE),
-	(103, 5, TRUE),
-	(107, 6, FALSE),
-	(197, 5, TRUE),
-	(194, 6, TRUE),
-	(138, 5, TRUE),
-	(262, 6, FALSE),
-	(168, 6, TRUE),
-	(263, 5, FALSE),
-	(187, 5, TRUE),
-	(200, 5, TRUE),
-	(257, 6, FALSE),
-	(253, 5, FALSE),
-	(179, 5, FALSE),
-	(180, 6, FALSE),
-	(132, 6, TRUE),
-	(157, 6, FALSE),
-	(183, 5, FALSE),
-	(173, 6, FALSE),
-	(122, 6, TRUE),
-	(147, 5, TRUE),
-	(158, 5, TRUE);
+	("BKRKZ", 5, TRUE),
+	("RY85H", 5, TRUE),
+	("9562C", 6, FALSE),
+	("XZMOH", 5, FALSE),
+	("MO7OL", 5, TRUE),
+	("DFWY5", 5, TRUE),
+	("XE8YG", 6, TRUE),
+	("A259G", 5, TRUE),
+	("94CMC", 6, FALSE),
+	("J3WO8", 5, TRUE),
+	("ARFAI", 6, TRUE),
+	("CTRHW", 5, TRUE),
+	("ZZMB0", 6, FALSE),
+	("76H1W", 6, TRUE),
+	("5VDJB", 5, FALSE),
+	("LVMS0", 5, TRUE),
+	("T786J", 5, TRUE),
+	("SP0PJ", 6, FALSE),
+	("659TT", 5, FALSE),
+	("54MXT", 5, FALSE),
+	("OB9UN", 6, FALSE),
+	("2W0WV", 6, TRUE),
+	("58QOP", 6, FALSE),
+	("JEL1R", 5, FALSE),
+	("80R8D", 6, FALSE),
+	("GN4WS", 6, TRUE),
+	("XW9HN", 5, TRUE),
+	("AADF5", 5, TRUE);
+
 INSERT INTO wheels
-        (w_model, e_leather, e_turbo, e_spoiler, e_tint, e_convertible) VALUES
-        (1,2,3,4,5,6),
-        (1,2,3,4,5,6);
+        (w_model, w_make, w_height, w_width, w_rim, w_diameter) VALUES
+        ("BKRKZ", "CIARW", 24, 13.64, 8.06, 29.71),
+        ("RY85H", "JYFZP", 20, 12.30, 8.23, 22.25),
+        ("9562C", "QQXKH", 24, 14.29, 8.59, 26.41),
+        ("XZMOH", "TWZNB", 24, 13.76, 8.35, 18.27),
+        ("MO7OL", "OAZAX", 22, 16.85, 8.29, 27.85),
+        ("DFWY5", "HNVQZ", 25, 12.09, 8.89, 21.24),
+        ("XE8YG", "CIARW", 24, 16.96, 7.99, 27.00),
+        ("A259G", "JYFZP", 24, 14.18, 8.20, 26.04),
+        ("94CMC", "QQXKH", 21, 15.21, 7.58, 24.93),
+        ("J3WO8", "TWZNB", 20, 17.40, 7.91, 26.06),
+        ("ARFAI", "OAZAX", 24, 17.99, 8.49, 26.05),
+        ("CTRHW", "HNVQZ", 20, 12.39, 7.32, 20.38),
+        ("ZZMB0", "CIARW", 24, 16.62, 7.84, 21.62),
+        ("76H1W", "JYFZP", 23, 16.53, 7.03, 23.41),
+        ("5VDJB", "QQXKH", 25, 13.78, 8.88, 19.35),
+        ("LVMS0", "TWZNB", 20, 17.35, 7.26, 25.40),
+        ("T786J", "OAZAX", 20, 14.41, 7.24, 23.56),
+        ("SP0PJ", "HNVQZ", 25, 14.46, 7.18, 25.36),
+        ("659TT", "CIARW", 24, 12.91, 7.97, 18.15),
+        ("54MXT", "JYFZP", 22, 14.95, 7.21, 19.32),
+        ("OB9UN", "QQXKH", 21, 16.39, 7.46, 26.33),
+        ("2W0WV", "TWZNB", 22, 16.66, 7.01, 24.58),
+        ("58QOP", "OAZAX", 25, 13.35, 7.14, 21.17),
+        ("JEL1R", "HNVQZ", 21, 13.27, 8.40, 18.64),
+        ("80R8D", "CIARW", 21, 12.66, 8.55, 20.00),
+        ("GN4WS", "JYFZP", 24, 17.15, 7.60, 29.35),
+        ("XW9HN", "QQXKH", 22, 14.15, 7.15, 26.40),
+        ("AADF5", "TWZNB", 20, 17.38, 8.67, 22.75);
+
 INSERT INTO manufacturer
         (m_name, m_nation, m_sales) VALUES
-        (1,2,3),
-        (1,2,3);
+	("Acura", "JAPAN", 447100332),
+	("Mercedes Benz", "GERMANY", 770444210),
+	("Dodge", "UNITED STATES", 568757876),
+	("Honda", "JAPAN", 911180816),
+	("Subaru", "JAPAN", 546727696),
+	("Hyundai", "SOUTH KOREA", 150124313),
+	("Ford", "UNITED STATES", 979843989),
+	("Rolls Royce", "UNITED KINGDOM", 417980924),
+	("Volkswagen", "GERMANY", 853777697),
+	("Chevrolet", "UNITED STATES", 382619531),
+	("Chrysler", "UNITED STATES", 845454540),
+	("Ferrari", "ITALY", 824717770),
+	("Bentley", "UNITED KINGDOM", 867708422);
+
+INSERT INTO extras
+	("", e_heated, e_leather, e_turbo, e_spoiler, e_tint, e_convertible) VALUES
+	("JH4KA2650HC000268", FALSE, FALSE, FALSE, e_spoiler, FALSE, TRUE),
+	("4JGBB86E27A199749", FALSE, FALSE, TRUE, e_spoiler, FALSE, FALSE),
+	("3B7HF13Y81G193584", FALSE, FALSE, FALSE, e_spoiler, FALSE, TRUE),
+	("1HGCT2B88DA000025", TRUE, FALSE, TRUE, e_spoiler, FALSE, FALSE),
+	("JH4DB8580RS000024", TRUE, TRUE, TRUE, e_spoiler, FALSE, TRUE),
+	("4S3BK6354S6355265", TRUE, FALSE, TRUE, e_spoiler, TRUE, TRUE),
+	("5NPEB4AC1DH576656", TRUE, TRUE, FALSE, e_spoiler, FALSE, FALSE),
+	("JH4KA4576KC031014", TRUE, TRUE, FALSE, e_spoiler, TRUE, FALSE),
+	("JH4NA1260MT001906", FALSE, TRUE, FALSE, e_spoiler, FALSE, TRUE),
+	("1FAFP55U91A180689", FALSE, TRUE, TRUE, e_spoiler, FALSE, FALSE),
+	("SCA1S684X4UX07444", TRUE, TRUE, FALSE, e_spoiler, TRUE, FALSE),
+	("3VWRA69M74M033915", TRUE, FALSE, TRUE, e_spoiler, TRUE, FALSE),
+	("1GNEK13T7YJ204464", TRUE, FALSE, FALSE, e_spoiler, FALSE, TRUE),
+	("2C3CCAET4CH256062", FALSE, TRUE, FALSE, e_spoiler, FALSE, FALSE),
+	("ZFFXS41A7X0114158", TRUE, TRUE, TRUE, e_spoiler, TRUE, FALSE),
+	("ZFFEZ58E170153605", TRUE, FALSE, FALSE, e_spoiler, FALSE, TRUE),
+	("ZFFEW58A660144998", TRUE, FALSE, TRUE, e_spoiler, TRUE, TRUE),
+	("ZFFWL44A330131232", FALSE, FALSE, FALSE, e_spoiler, FALSE, FALSE),
+	("ZFFWP50A0V0106629", TRUE, FALSE, TRUE, e_spoiler, FALSE, FALSE),
+	("ZFFEW58L170151456", TRUE, FALSE, TRUE, e_spoiler, TRUE, FALSE),
+	("ZFFAB54A080014783", TRUE, FALSE, TRUE, e_spoiler, FALSE, TRUE),
+	("SCBCR63W55C024793", TRUE, FALSE, FALSE, e_spoiler, TRUE, TRUE),
+	("SCBFT7ZA3FC041545", TRUE, FALSE, TRUE, e_spoiler, TRUE, TRUE),
+	("SCBZS42A5CCX05753", FALSE, FALSE, TRUE, e_spoiler, TRUE, TRUE),
+	("SCBLC37F04CX09874", FALSE, TRUE, TRUE, e_spoiler, TRUE, TRUE),
+	("SCBBP9ZA0AC062683", TRUE, FALSE, TRUE, e_spoiler, TRUE, TRUE),
+	("SCBBB7ZH1EC118746", FALSE, TRUE, FALSE, e_spoiler, FALSE, FALSE),
+	("SCBCR63W55C024793", FALSE, TRUE, TRUE, e_spoiler, FALSE, TRUE);
