@@ -259,7 +259,7 @@ INSERT INTO extras
 	("SCBBB7ZH1EC118746", 0, 1, 0, 0, 0, 0),
 	("SCBCR63W55C024793", 0, 1, 1, 0, 0, 1);
 
-	--List all makers with vehicles costing moore than 100000
+--List all makers with vehicles costing moore than 100000
 SELECT DISTINCT (m_name)
   FROM vehicle,
        manufacturer
@@ -283,14 +283,14 @@ SELECT DISTINCT (m_name)
 	e_torque BETWEEN 600 AND 700;
 
 
+--List the amount of manufacturers a country has
+SELECT m_nation,
+       COUNT(DISTINCT (m_name) )
+  FROM manufacturer
+ GROUP BY m_nation;
 
-	--List the amount of manufacturers a country has
-	SELECT m_nation, COUNT(DISTINCT(m_name))
-	FROM manufacturer
-	GROUP BY m_nation
 
-
-	--Give me  the make model and year of lightest car
+--Find the make, model, and year of the lightest car
 SELECT v_year,
        v_make,
        v_model
@@ -303,7 +303,7 @@ SELECT v_year,
  GROUP BY v_vin;
 
 --List countries who sell cars with a topspeed over 250
-SELECT m_nation
+SELECT DISTINCT(m_nation)
 FROM manufacturer, vehicle, hypercars
 WHERE v_vin = h_vin AND
       h_topSpeed > 250 and
@@ -335,7 +335,7 @@ WHERE v_vin = ex_vin AND
 
 
 --Find the year where the most expensive car was produced in USA
-SELECT v_year
+SELECT DISTINCT(v_year)
 FROM manufacturer, vehicle, hypercars
 WHERE v_vin = h_vin AND
       m_nation = "UNITED STATES" AND
@@ -344,43 +344,48 @@ WHERE v_vin = h_vin AND
 
 
 --Find the manufacturer with the highest number of sales before the year 2000
-SELECT m_name
+SELECT DISTINCT(m_name)
 FROM manufacturer, vehicle
 WHERE v_year < 2000 AND
       m_sales = (SELECT MAX(m_sales)
                  FROM manufacturer);
 
-
---Find the nation that produces the slowest car in the year 2004 that also has a spoiler
-SELECT m_nation
+--How many nations produce red vehicles that also have a spoiler
+SELECT COUNT(DISTINCT(m_nation))
 FROM manufacturer, extras, vehicle, hypercars
 WHERE ex_vin = v_vin AND
       v_vin = h_vin AND
-      ex_spoiler = 1 AND
-      v_year = 2004 AND
-      h_topSpeed = (SELECT MIN(h_topSpeed)
-                    FROM hypercars);
+      v_color = "RED" AND
+      ex_spoiler = 1;
 
 
-    --List the hypercars that have rim diameter lower than 7.68, sorted  by rim size  descending
-    SELECT v_year, v_make, v_model,
-           w_model,
-           w_rim
-      FROM vehicle,
-           hypercars,
-           wheels
-     WHERE v_vin = h_vin AND
-           h_wheel = w_model AND
-           w_rim < 7.68
-     ORDER BY w_rim DESC;
+--List the hypercars that have rim diameter lower than 7.68, sorted  by rim size  descending
+SELECT v_year, v_make, v_model,
+       w_model,
+       w_rim
+FROM vehicle,
+     hypercars,
+     wheels
+ WHERE v_vin = h_vin AND
+       h_wheel = w_model AND
+       w_rim < 7.68
+ ORDER BY w_rim DESC;
 
+
+ --List all hypercars that cost less than 90000 made by Acura after the year 2000
+ SELECT DISTINCT(h_vin)
+ FROM hypercars, vehicle, manufacturer
+ WHERE h_vin = v_vin AND
+       v_make = m_name AND
+       v_price < 90000 AND
+       v_year > 2000;
 
 
 --List hypercars with 6 gears and no turbo are made by Mercedes Benz
-SELECT h_vin
+SELECT DISTINCT(h_vin)
 FROM hypercars, manufacturer, extras, transmission, vehicle
 WHERE t_gears = 6 AND
-      ex_turbo = 0 AND
+      ex_turbo = 1 AND
       m_name = "Mercedes Benz" AND
       v_make = m_name AND
       h_vin = v_vin AND
@@ -420,6 +425,83 @@ UPDATE vehicle
  WHERE v_vin = '1GNEK13T7YJ204464';
 
 
---q2
+ --Out of all hypercars that have engines larger than 5, made in Germany, and are not tinted which one is the fastest?
+ SELECT DISTINCT(h_vin)
+ FROM hypercars, manufacturer, engine, extras
+ WHERE h_vin = ex_vin AND
+       m_nation = "GERMANY" AND
+       e_size > 5 AND
+       ex_tint = 0 AND
+       h_topSpeed = (SELECT h_topSpeed
+                     FROM hypercars);
 
---q2
+ --List countries that produce manual hypercars with heated seats and a top speed of less than 150
+ SELECT DISTINCT(m_nation)
+ FROM manufacturer, extras, hypercars, transmission, vehicle
+ WHERE h_topSpeed < 150 AND
+       ex_heated = 1 AND
+       t_type = 1 AND
+       v_make = m_name AND
+       h_vin = v_vin;
+
+ --Find the wheel and engine model of the fastest car produced in JAPAN before the year 2000
+ SELECT (w_model, e_model
+ FROM engine, wheels, hypercars, manufacturer, vehicle
+ WHERE e_model = h_engine AND
+       w_model = h_wheel AND
+       m_nation = "JAPAN" AND
+       v_vin = h_vin AND
+       v_year < 2000 AND
+       h_topSpeed = (SELECT MAX(h_topSpeed)
+                     FROM hypercars);
+
+ --Find the slowest car with a v12 engines
+ SELECT v_year, v_make, v_model, h_topSpeed
+   FROM vehicle,
+        hypercars,
+        engine
+  WHERE v_vin = h_vin AND
+        h_engine = e_model AND
+        e_cylinders = 12 AND
+        h_topSpeed IN (
+            SELECT MIN(h_topSpeed)
+              FROM hypercars,
+                   engine
+             WHERE h_engine = e_model AND
+                   e_cylinders = 12
+        );
+--Find the average price of all the cars of of the maker with most cars in the database
+SELECT maker,
+       ROUND(AVG(v_price), 2)
+  FROM (
+           SELECT v_make AS maker,
+                  MAX(cnt)
+             FROM (
+                      SELECT v_make,
+                             Count(v_make) AS cnt
+                        FROM vehicle
+                       GROUP BY v_make
+                  )
+       ),
+       vehicle
+ WHERE v_make = maker;
+
+
+ --List all the maker and cylinders of all engines with hp ranging from AVG to MAX
+ SELECT h_vin,
+        e_make,
+        e_cylinders,
+        h_topSpeed
+   FROM engine,
+        hypercars
+  WHERE h_engine = e_model AND
+        e_hp BETWEEN (
+                         SELECT AVG(e_hp)
+                           FROM engine
+                     )
+        AND (
+                SELECT MAX(e_hp)
+                  FROM engine
+            )
+  GROUP BY h_vin
+  ORDER BY h_topSpeed;
