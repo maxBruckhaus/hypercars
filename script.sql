@@ -57,15 +57,6 @@ CREATE TABLE IF NOT EXISTS extras (
     ex_convertible BOOLEAN        NOT NULL
 );
 
-<<<<<<< HEAD
-CREATE TABLE IF NOT EXISTS  bids (
-  b_number DECIMAL (5)  NOT NULL,
-  b_offer DECIMAL (7,2) NOT NULL,
-  b_licenseNPlate VARCHAR(10) NOT NULL,
-  b_name VARCHAR(10) NOT NULL,
-  b_phone DECIMAL(10) NOT NULL
-);
-
 CREATE TABLE IF NOT EXISTS  people (
     p_license     VARCHAR        NOT NULL,
     p_phone       DECIMAL        NOT NULL,
@@ -73,15 +64,6 @@ CREATE TABLE IF NOT EXISTS  people (
     p_email       VARCHAR        NOT NULL,
     p_age         DECIMAL        NOT NULL
 );
-=======
-CREATE TABLE IF NOT EXISTS  people (
-    p_license     VARCHAR        NOT NULL,
-    p_phone       DECIMAL        NOT NULL,
-    p_name        VARCHAR        NOT NULL,
-    p_email       VARCHAR        NOT NULL,
-    p_age         DECIMAL        NOT NULL
-);
->>>>>>> aded84cb9c52c5840e27f3bfa36d92b8193cc6a4
 
 -- https://vingenerator.org/brand
 INSERT INTO vehicle
@@ -285,6 +267,9 @@ INSERT INTO extras
 	("SCBBP9ZA0AC062683", 1, 0, 1, 1, 1, 1),
 	("SCBBB7ZH1EC118746", 0, 1, 0, 0, 0, 0),
 	("SCBCR63W55C024793", 0, 1, 1, 0, 0, 1);
+
+INSERT INTO people
+  ("F6984865", 5552345264, "John Smith", "jSmith@gmail.com", 29)
 
 --List all makers with vehicles costing moore than 100000
 SELECT DISTINCT (m_name)
