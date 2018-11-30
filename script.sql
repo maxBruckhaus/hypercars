@@ -57,17 +57,6 @@ CREATE TABLE IF NOT EXISTS extras (
     ex_convertible BOOLEAN        NOT NULL
 );
 
-
-
-
-
-
-
-
-
-
-
-
 CREATE TABLE IF NOT EXISTS  people (
     p_license     VARCHAR        NOT NULL,
     p_phone       DECIMAL        NOT NULL,
@@ -75,6 +64,14 @@ CREATE TABLE IF NOT EXISTS  people (
     p_email       VARCHAR        NOT NULL,
     p_age         DECIMAL        NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS bids (
+    b_ID              VARCHAR    NOT NULL,
+    b_price           DECIMAL    NOT NULL,
+    b_licensePlate    VARCHAR    NOT NULL,
+    b_name            VARCHAR    NOT NULL,
+    b_phone           DECIMAL    NOT NULL
+)
 
 -- https://vingenerator.org/brand
 INSERT INTO vehicle
