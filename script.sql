@@ -57,7 +57,6 @@ CREATE TABLE IF NOT EXISTS extras (
     ex_convertible BOOLEAN        NOT NULL
 );
 
-<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS  bids (
   b_number DECIMAL (5)  NOT NULL,
   b_offer DECIMAL (7,2) NOT NULL,
@@ -73,15 +72,6 @@ CREATE TABLE IF NOT EXISTS  people (
     p_email       VARCHAR        NOT NULL,
     p_age         DECIMAL        NOT NULL
 );
-=======
-CREATE TABLE IF NOT EXISTS  people (
-    p_license     VARCHAR        NOT NULL,
-    p_phone       DECIMAL        NOT NULL,
-    p_name        VARCHAR        NOT NULL,
-    p_email       VARCHAR        NOT NULL,
-    p_age         DECIMAL        NOT NULL
-);
->>>>>>> aded84cb9c52c5840e27f3bfa36d92b8193cc6a4
 
 -- https://vingenerator.org/brand
 INSERT INTO vehicle
@@ -285,6 +275,61 @@ INSERT INTO extras
 	("SCBBP9ZA0AC062683", 1, 0, 1, 1, 1, 1),
 	("SCBBB7ZH1EC118746", 0, 1, 0, 0, 0, 0),
 	("SCBCR63W55C024793", 0, 1, 1, 0, 0, 1);
+
+	INSERT INTO people
+		(p_license, p_phone, p_name, p_email, p_age) VALUES
+	("Fabian Tatum", "phone#", "name", "email", "age"),
+	("Michael Cadle", "phone#", "name", "email", "age"),
+	("Dalia Tieman", "phone#", "name", "email", "age"),
+	("Alona Tabor", "phone#", "name", "email", "age"),
+	("Shila Eagar", "phone#", "name", "email", "age"),
+	("Kimberlee Yeary", "phone#", "name", "email", "age"),
+	("Rickie Bohnert", "phone#", "name", "email", "age"),
+	("Morris Szymanski", "phone#", "name", "email", "age"),
+	("Delora Vandeusen", "phone#", "name", "email", "age"),
+	("Fidelia Lamons", "phone#", "name", "email", "age"),
+	("Drucilla Wilcher", "phone#", "name", "email", "age"),
+	("Elma Lucca", "phone#", "name", "email", "age"),
+	("Virgilio Oday", "phone#", "name", "email", "age"),
+	("Ken Brimer", "phone#", "name", "email", "age"),
+	("Joycelyn Brantley", "phone#", "name", "email", "age"),
+	("Isobel Fuqua", "phone#", "name", "email", "age"),
+	("Sybil Vanslyke", "phone#", "name", "email", "age"),
+	("Nancey Senters", "phone#", "name", "email", "age"),
+	("Drew Alfano", "phone#", "name", "email", "age"),
+	("Isaura Pedone", "phone#", "name", "email", "age"),
+	("Vashti Kenny", "phone#", "name", "email", "age"),
+	("Clark Mara", "phone#", "name", "email", "age"),
+	("Sixta Klaus", "phone#", "name", "email", "age"),
+	("Isabel Hammack", "phone#", "name", "email", "age"),
+	("Liberty Zaragosa", "phone#", "name", "email", "age"),
+	("Herschel Westerberg", "phone#", "name", "email", "age"),
+	("Cherie Whitehill", "phone#", "name", "email", "age"),
+	("Temple Feldman", "phone#", "name", "email", "age"),
+	("Louanne Dotts", "phone#", "name", "email", "age"),
+	("Angle Dickey", "phone#", "name", "email", "age"),
+	("Gregoria Voliva", "phone#", "name", "email", "age"),
+	("Shamika Cartagena", "phone#", "name", "email", "age"),
+	("Darnell Gaccione", "phone#", "name", "email", "age"),
+	("Lemuel Flore ", "phone#", "name", "email", "age"),
+	("Antoine Kozlowski", "phone#", "name", "email", "age"),
+	("Nella Calle", "phone#", "name", "email", "age"),
+	("Richard Force", "phone#", "name", "email", "age"),
+	("Lieselotte Dubuc", "phone#", "name", "email", "age"),
+	("Sanda Murrieta", "phone#", "name", "email", "age"),
+	("Caroll Pontius", "phone#", "name", "email", "age"),
+	("Laticia Skelly", "phone#", "name", "email", "age"),
+	("Kasandra Viveros", "phone#", "name", "email", "age"),
+	("Conchita Humbertson", "phone#", "name", "email", "age"),
+	("Melodi Ebright", "phone#", "name", "email", "age"),
+	("Francesco Bishop", "phone#", "name", "email", "age"),
+	("Seema Claude", "phone#", "name", "email", "age"),
+	("Josef Stollings", "phone#", "name", "email", "age"),
+	("Herta Birch", "phone#", "name", "email", "age"),
+	("Rosanna Lawry", "phone#", "name", "email", "age"),
+	("Christie Hamby ", "phone#", "name", "email", "age");
+
+
 
 --List all makers with vehicles costing moore than 100000
 SELECT DISTINCT (m_name)
