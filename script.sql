@@ -57,6 +57,17 @@ CREATE TABLE IF NOT EXISTS extras (
     ex_convertible BOOLEAN        NOT NULL
 );
 
+
+
+
+
+
+
+
+
+
+
+
 CREATE TABLE IF NOT EXISTS  people (
     p_license     VARCHAR        NOT NULL,
     p_phone       DECIMAL        NOT NULL,
