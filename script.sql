@@ -56,6 +56,15 @@ CREATE TABLE IF NOT EXISTS extras (
     ex_tint        BOOLEAN        NOT NULL,
     ex_convertible BOOLEAN        NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS  people (
+    p_license     VARCHAR        NOT NULL,
+    p_phone       DECIMAL        NOT NULL,
+    p_name        VARCHAR        NOT NULL,
+    p_email       VARCHAR        NOT NULL,
+    p_age         DECIMAL        NOT NULL
+);
+
 -- https://vingenerator.org/brand
 INSERT INTO vehicle
         (v_vin, v_license, v_year, v_make, v_model, v_color, v_price) VALUES
