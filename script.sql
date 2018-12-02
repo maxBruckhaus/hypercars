@@ -277,7 +277,11 @@ INSERT INTO extras
 	("SCBCR63W55C024793", 0, 1, 1, 0, 0, 1);
 
 INSERT INTO people
-  ("F6984865", 5552345264, "John Smith", "jSmith@gmail.com", 29)
+  ("F6984865", 5552345264, "John Smith", "jSmith@gmail.com", 29);
+
+
+INSERT INTO bids
+  ("dd");
 
 --List all makers with vehicles costing moore than 100000
 SELECT DISTINCT (m_name)
