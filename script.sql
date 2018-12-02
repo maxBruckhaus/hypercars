@@ -278,10 +278,60 @@ INSERT INTO extras
 
 INSERT INTO people
   ("F6984865", 5552345264, "John Smith", "jSmith@gmail.com", 29);
+  ("F6984865", 5552345264, "John Smith", "jSmith@gmail.com", 29);
+  ("F6984865", 5552345264, "John Smith", "jSmith@gmail.com", 29);
+  ("F6984865", 5552345264, "John Smith", "jSmith@gmail.com", 29);
+  ("F6984865", 5552345264, "John Smith", "jSmith@gmail.com", 29);
+  ("F6984865", 5552345264, "John Smith", "jSmith@gmail.com", 29);
+  ("F6984865", 5552345264, "John Smith", "jSmith@gmail.com", 29);
+  ("F6984865", 5552345264, "John Smith", "jSmith@gmail.com", 29);
+  ("F6984865", 5552345264, "John Smith", "jSmith@gmail.com", 29);
+  ("F6984865", 5552345264, "John Smith", "jSmith@gmail.com", 29);
+  ("F6984865", 5552345264, "John Smith", "jSmith@gmail.com", 29);
+  ("F6984865", 5552345264, "John Smith", "jSmith@gmail.com", 29);
+  ("F6984865", 5552345264, "John Smith", "jSmith@gmail.com", 29);
+  ("F6984865", 5552345264, "John Smith", "jSmith@gmail.com", 29);
+  ("F6984865", 5552345264, "John Smith", "jSmith@gmail.com", 29);
+  ("F6984865", 5552345264, "John Smith", "jSmith@gmail.com", 29);
+  ("F6984865", 5552345264, "John Smith", "jSmith@gmail.com", 29);
+  ("F6984865", 5552345264, "John Smith", "jSmith@gmail.com", 29);
+  ("F6984865", 5552345264, "John Smith", "jSmith@gmail.com", 29);
+  ("F6984865", 5552345264, "John Smith", "jSmith@gmail.com", 29);
+  ("F6984865", 5552345264, "John Smith", "jSmith@gmail.com", 29);
+  ("F6984865", 5552345264, "John Smith", "jSmith@gmail.com", 29);
+  ("F6984865", 5552345264, "John Smith", "jSmith@gmail.com", 29);
+  ("F6984865", 5552345264, "John Smith", "jSmith@gmail.com", 29);
+  ("F6984865", 5552345264, "John Smith", "jSmith@gmail.com", 29);
+  ("F6984865", 5552345264, "John Smith", "jSmith@gmail.com", 29);
+  ("F6984865", 5552345264, "John Smith", "jSmith@gmail.com", 29);
+  ("F6984865", 5552345264, "John Smith", "jSmith@gmail.com", 29);
 
 
 INSERT INTO bids
-  ("dd");
+  ("B000", 10000, 7OUK352, John Smoth, 5552345264);
+  ("B000", 10000, 7OUK352, John Smoth, 5552345264);
+  ("B000", 10000, 7OUK352, John Smoth, 5552345264);
+  ("B000", 10000, 7OUK352, John Smoth, 5552345264);
+  ("B000", 10000, 7OUK352, John Smoth, 5552345264);
+  ("B000", 10000, 7OUK352, John Smoth, 5552345264);
+  ("B000", 10000, 7OUK352, John Smoth, 5552345264);
+  ("B000", 10000, 7OUK352, John Smoth, 5552345264);
+  ("B000", 10000, 7OUK352, John Smoth, 5552345264);
+  ("B000", 10000, 7OUK352, John Smoth, 5552345264);
+  ("B000", 10000, 7OUK352, John Smoth, 5552345264);
+  ("B000", 10000, 7OUK352, John Smoth, 5552345264);
+  ("B000", 10000, 7OUK352, John Smoth, 5552345264);
+  ("B000", 10000, 7OUK352, John Smoth, 5552345264);
+  ("B000", 10000, 7OUK352, John Smoth, 5552345264);
+  ("B000", 10000, 7OUK352, John Smoth, 5552345264);
+  ("B000", 10000, 7OUK352, John Smoth, 5552345264);
+  ("B000", 10000, 7OUK352, John Smoth, 5552345264);
+  ("B000", 10000, 7OUK352, John Smoth, 5552345264);
+  ("B000", 10000, 7OUK352, John Smoth, 5552345264);
+  ("B000", 10000, 7OUK352, John Smoth, 5552345264);
+  ("B000", 10000, 7OUK352, John Smoth, 5552345264);
+
+
 
 --List all makers with vehicles costing moore than 100000
 SELECT DISTINCT (m_name)
