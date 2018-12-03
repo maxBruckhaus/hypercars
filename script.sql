@@ -103,7 +103,39 @@ INSERT INTO vehicle
 	("SCBLC37F04CX09874", "123ABE4", 2004, "Bentley", "Arnage", "RED", 93405),
 	("SCBBP9ZA0AC062683", "123ABE5", 2010, "Bentley", "Continental Flying Spur Speed", "WHITE", 20492),
 	("SCBBB7ZH1EC118746", "123ABE6", 2014, "Bentley", "Mulsanne", "PINK", 83945),
-	("SCBCR63W55C024793", "123ABE7", 2005, "Bentley", "Continental GT", "RED", 83945);
+	("SCBCR63W55C024793", "123ABE7", 2005, "Bentley", "Continental GT", "RED", 83945),
+
+
+	("WVFWPKR4D5KRM1RBLV", "V7WPW0G", 2007, "Mercedes Benz", "M Class", "BLACK", 20265),
+	("PWZIGRBDT7UDPE5JAT", "T52PU5Q", 2001, "Dodge", "Ram Pickup 1500", "BLUE", 30125),
+	("RKNXEKKC2USFZ96T0I", "8F5FK2Q", 2013, "Honda", "Accord", "WHITE", 15843),
+	("HBHTCU3ULYPSUDI80M", "JUMECQC", 1994, "Acura", "Integra", "BLUE", 3953),
+	("XIYSIC2K3FS6JIY03O", "05UN4IK", 1995, "Subaru", "Legacy", "GRAY", 6632),
+	("RGBXCA94EMG4DGZXUT", "2ZZRVKR", 2013, "Hyundai", "Sonata", "PINK", 29473),
+	("ZYRRUXQZL0QY6PF5MO", "NV7PD25", 1989, "Acura", "Legend", "WHITE", 3046),
+	("YNOPGKKBOQKM5NOR59", "Q1Y1BTF", 1991, "Acura", "NSX", "RED", 3046),
+	("USSWPZ76DAKC3PCOF4", "R0WXNAA", 2001, "Ford", "Taurus", "BLACK", 3953),
+	("EFSJTA1FQSS3HGWHXY", "CWOH0VZ", 2004, "Rolls Royce", "Phantom", "BLACK", 200367),
+	("HCJKJHKY7022ZR3NQN", "ODCDADC", 2004, "Volkswagen", "Jetta", "BLUE", 3953),
+	("CNBVPGH6Q84ONUJ5IH", "RQYZZTA", 2000, "Chevrolet", "Tahoe", "WHITE", 9263),
+	("WTFWASRUU6ZLTRNBU0", "0XIPO8U", 2012, "Chrysler", "300C", "PINK", 3953),
+	("YXIXTM1WV4RJO1DZ8V", "WL6INN8", 1999, "Ferrari", "F355", "RED", 3874905),
+	("VSJJWWQ5YOLE4CJ4DR", "Z7B33AF", 2012, "Ferrari", "F430 Coupe", "YELLOW", 494734),
+	("ESEERJN2D4XI6VVXIN", "DSSGR9L", 2006, "Ferrari", "F430", "BLUE", 35232),
+	("XNXWFNQX0K3RPKM4J2", "INTD9XZ", 2003, "Ferrari", "456M", "WHITE", 558376),
+	("NLVEXWWE8HSBM3MZHW", "IOI4IDI", 1997, "Ferrari", "456", "RED", 29457),
+	("CEZXQBFOUGOOU03IPG", "7Z3PA8S", 2007, "Ferrari", "F430 Coupe", "PINK", 35232),
+	("NXVLGAR0NBUHF04NU2", "V6E44QN", 2008, "Ferrari", "612", "BLUE", 35232),
+	("OYHJIR7XS7MLTKX1TK", "26OR95W", 2005, "Bentley", "Continental GT", "RED", 39584),
+	("PVUSHAR7HLXDN3G5SA", "MGRD7XX", 2015, "Bentley", "Continental GT V8", "PINK", 25344),
+	("RJUDLUTU8GD8GL7Y72", "G37TWY4", 1982, "Bentley", "Mulsanne", "BLUE", 83945),
+	("GZABPO5XTB32KVZA3H", "JKXI17S", 2004, "Bentley", "Arnage", "RED", 93405),
+	("UOQIFOEYRX7COMKEAX", "PZ6BYMG", 2010, "Bentley", "Continental Flying Spur Speed", "WHITE", 20492),
+	("VDRABF8GY8SZXQHQJU", "0GFHBGB", 2014, "Bentley", "Mulsanne", "PINK", 83945),
+	("SCBCR63W55C624793", "G37THY4", 2005, "Bentley", "Continental GT", "RED", 83945),;
+
+
+
 
 INSERT INTO hypercars
         (h_vin, h_engine, h_topSpeed, h_trans, h_weight, h_wheel) VALUES
@@ -277,54 +309,52 @@ INSERT INTO extras
 	("SCBCR63W55C024793", 0, 1, 1, 0, 0, 1);
 
   INSERT INTO people
-    ("Drivers licese", 5552345264, "John Smoth", "jSmith@email.com", 49);
-    ("Drivers licese", 5556392645, "Olga Buck", "oBuck@email.com", 62);
-    ("Drivers licese", 5559682745, "Kasi Rozalija", "kroz@email.com", 29);
-    ("Drivers licese", 5559529566, "Loki Sarala", "lsarala@email.com", 30);
-    ("Drivers licese", 5552352543, "Nergui Anu", "nanu@email.com", 31);
-    ("Drivers licese", 5555902935, "Pris Wolfe", "pwolfe@email.com", 69);
-    ("Drivers licese", 5552352367, "Lisbeth Caoligon", "lcao@email.com", 71);
-    ("Drivers licese", 5559863423, "John Smoth", "jsmoth@email.com", 60);
-    ("Drivers licese", 5559864332, "Marilene Sibilla", "msibilla@email.com", 58);
-    ("Drivers licese", 5552353267, "Payton Prunella", "pprun@email.com", 25);
-    ("Drivers licese", 5559863235, "Ashton Jantje", "ashtonjan@email.com", 31);
-    ("Drivers licese", 5551152631, "Aggie Lucius", "alucius@email.com", 28);
-    ("Drivers licese", 5559821064, "Steen Gunda", "sgunda@email.com", 30);
-    ("Drivers licese", 5559863233, "Nori Ninian", "nninian@email.com", 36);
-    ("Drivers licese", 5552386823, "Keelan Iris", "kiris@email.com", 48);
-    ("Drivers licese", 5559812523, "Marci Marylou", "mmary@email.com", 54);
-    ("Drivers licese", 5559863299, "Elsa Bertoldo", "elsabert@email.com", 44);
-    ("Drivers licese", 5559217206, "Marin Lex", "marinlex@email.com", 26);
-    ("Drivers licese", 5557752033, "Xavior Kinsley", "xkin@email.com", 52);
-    ("Drivers licese", 5558882593, "Karin Rearden", "krearden@email.com", 36);
-    ("Drivers licese", 5551985323, "Skyler Hilmar", "shilmar@email.com", 54);
-    ("Drivers licese", 5559157239, "Anima Emiel", "aemiel@email.com", 34);
-
+    ("OCB4NDCR", 5552345264, "John Smoth", "jSmith@email.com", 49);
+    ("X5OT7H6T", 5556392645, "Olga Buck", "oBuck@email.com", 62);
+    ("88JDBI64", 5559682745, "Kasi Rozalija", "kroz@email.com", 29);
+    ("9VSR5354", 5559529566, "Loki Sarala", "lsarala@email.com", 30);
+    ("0P932C9K", 5552352543, "Nergui Anu", "nanu@email.com", 31);
+    ("53OFLNAW", 5555902935, "Pris Wolfe", "pwolfe@email.com", 69);
+    ("I5RQNWC1", 5552352367, "Lisbeth Caoligon", "lcao@email.com", 71);
+    ("IEZQFUTS", 5559863423, "John Smoth", "jsmoth@email.com", 60);
+    ("29VCTAG2", 5559864332, "Marilene Sibilla", "msibilla@email.com", 58);
+    ("PIL8HU75", 5552353267, "Payton Prunella", "pprun@email.com", 25);
+    ("0Q48PSO2", 5559863235, "Ashton Jantje", "ashtonjan@email.com", 31);
+    ("EV0NP8X0", 5551152631, "Aggie Lucius", "alucius@email.com", 28);
+    ("9LP4PUQK", 5559821064, "Steen Gunda", "sgunda@email.com", 30);
+    ("MYPYLSPY", 5559863233, "Nori Ninian", "nninian@email.com", 36);
+    ("EKNNVTJ5", 5552386823, "Keelan Iris", "kiris@email.com", 48);
+    ("S2ZWGCJA", 5559812523, "Marci Marylou", "mmary@email.com", 54);
+    ("RJTHMO4U", 5559863299, "Elsa Bertoldo", "elsabert@email.com", 44);
+    ("L2KKDVV2", 5559217206, "Marin Lex", "marinlex@email.com", 26);
+    ("MWFP46S5", 5557752033, "Xavior Kinsley", "xkin@email.com", 52);
+    ("ARZNAC3X", 5558882593, "Karin Rearden", "krearden@email.com", 36);
+    ("BVOKS5QT", 5551985323, "Skyler Hilmar", "shilmar@email.com", 54);
+    ("UL4ZB5HT", 5559157239, "Anima Emiel", "aemiel@email.com", 34);
 
 INSERT INTO bids
-  ("B000", 10000, 7OUK352, John Smoth, 5552345264);
-  ("B001", 20000, 0SGI837, Olga Buck, 5556392645);
-  ("B002", 53000, 4WKC779, Kasi Rozalija, 5559682745);
-  ("B003", 12000, 6GDW419, Loki Sarala, 5559529566);
-  ("B004", 24000, 7LUS209, Nergui Anu, 5552352543);
-  ("B005", 23500, 8YBH481, Pris Wolfe, 5555902935);
-  ("B006", 62000, 2YZR718, Lisbeth Caoligon, 5552352367);
-  ("B007", 32000, 6INP615, John Smoth, 5559863423);
-  ("B008", 16000, 4UXO230, Marilene Sibilla, 5559864332);
-  ("B009", 100000, 6AIB605, Payton Prunella, 5552353267);
-  ("B010", 73000, 8RBD005, Ashton Jantje, 5559863235);
-  ("B011", 225000, 3JUH337, Aggie Lucius, 5551152631);
-  ("B012", 85000, 2WSQ545, Steen Gunda, 5559821064);
-  ("B013", 92000, 8SOS973, Nori Ninian, 5559863233);
-  ("B014", 21000, 4KQC535, Keelan Iris, 5552386823);
-  ("B015", 200000, 6LLD908, Marci Marylou, 5559812523);
-  ("B016", 150000, 8VOB584, Elsa Bertoldo, 5559863299);
-  ("B017", 175000, 1WXW120, Marin Lex, 5559217206);
-  ("B018", 29500, 3RJB005, Xavior Kinsley, 5557752033);
-  ("B019", 18500, 5JOS264, Karin Rearden, 5558882593);
-  ("B020", 32000, 9GPP647, Skyler Hilmar, 5551985323);
-  ("B021", 45000, 4YNG181, Anima Emiel, 5559157239);
-
+  ("B000", 10000, "123ABC0", "John Smoth", 5552345264);
+  ("B001", 20000, "123ABC1", "Olga Buck", 5556392645);
+  ("B002", 53000, "123ABC2", "Kasi Rozalija", 5559682745);
+  ("B003", 12000, "123ABC3", "Loki Sarala", 5559529566);
+  ("B004", 24000, "123ABC4", "Nergui Anu", 5552352543);
+  ("B005", 23500, "123ABC5", "Pris Wolfe", 5555902935);
+  ("B006", 62000, "123ABC6", "Lisbeth Caoligon", 5552352367);
+  ("B007", 32000, "123ABC7", "John Smoth", 5559863423);
+  ("B008", 16000, "123ABC8", "Marilene Sibilla", 5559864332);
+  ("B009", 100000, "123ABC9", "Payton Prunella", 5552353267);
+  ("B010", 73000, "123ABD0", "Ashton Jantje", 5559863235);
+  ("B011", 225000, "123ABD1", "Aggie Lucius", 5551152631);
+  ("B012", 85000, "123ABD2", "Steen Gunda", 5559821064);
+  ("B013", 92000, "123ABD3", "Nori Ninian", 5559863233);
+  ("B014", 21000, "123ABD4", "Keelan Iris", 5552386823);
+  ("B015", 200000, "123ABD5", "Marci Marylou", 5559812523);
+  ("B016", 150000, "123ABD6", "Elsa Bertoldo", 5559863299);
+  ("B017", 175000, "123ABD7", "Marin Lex", 5559217206);
+  ("B018", 29500, "123ABD8", "Xavior Kinsley", 5557752033);
+  ("B019", 18500, "123ABD9", "Karin Rearden", 5558882593);
+  ("B020", 32000, "123ABE0", "Skyler Hilmar", 5551985323);
+  ("B021", 45000, "123ABE1", "Anima Emiel", 5559157239);
 
 
 --List all makers with vehicles costing moore than 100000
