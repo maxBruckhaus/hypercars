@@ -389,7 +389,7 @@ INSERT INTO manufacturer
 	("Bentley", "UNITED KINGDOM", 867708422);
 
 INSERT INTO extras
-	(ex_vin, ex_heated, ex_leather, ex_turbo, ex_spoiler, ex_tint, ex_convertible) VALUES
+	(ex_model, ex_heated, ex_leather, ex_turbo, ex_spoiler, ex_tint, ex_convertible) VALUES
 	("Legend", 0, 0, 0, 0, 0, 1),
 	("M Class", 0, 0, 1, 1, 0, 0),
 	("Ram Pickup", 0, 0, 0, 1, 0, 1),
@@ -512,7 +512,7 @@ SELECT DISTINCT (m_name)
 	hypercars,
 	manufacturer,
 	engine
-  WHERE v_vin = ex_vin AND
+  WHERE v_model = ex_model AND
 	v_vin = h_vin AND
 	v_make = m_name AND
 	h_engine = e_model AND
@@ -556,7 +556,7 @@ WHERE v_vin = h_vin AND
         transmission,
         hypercars
   WHERE v_make = m_name AND
-        v_vin = ex_vin AND
+        v_model = ex_model AND
         v_vin = h_vin AND
         h_trans = t_model AND
         m_nation LIKE "GERMANY" AND
@@ -567,7 +567,7 @@ WHERE v_vin = h_vin AND
 --Find how many manufacturers produce cars with heated seats and spoilers
 SELECT COUNT(DISTINCT(m_name))
 FROM manufacturer, vehicle, extras
-WHERE v_vin = ex_vin AND
+WHERE v_model = ex_model AND
       m_name = v_make AND
       ex_heated = 1 AND
       ex_spoiler = 1;
@@ -744,3 +744,40 @@ SELECT maker,
             )
   GROUP BY h_vin
   ORDER BY h_topSpeed;
+
+
+
+  --List everyone who placed a bid of at least $10,000 for a black car
+  SELECT p_name
+  FROM people,
+       bids,
+       vehicle,
+ WHERE b_price >= 10000 AND
+       b_phone = p_phone AND
+       b_licensePlate = v_license AND
+       v_color = "BLACK";
+
+
+
+  --Find the phone number of the person who placed the highest bid on a car from GERMANY
+  SELECT DISTINCT(p_phone)
+  FROM people,
+       bids,
+       manufacturer,
+       vehicle
+  WHERE p_phone = b_phone AND
+        b_licensePlate = v_license AND
+        m_nation = "GERMANY" AND
+        b_price = (SELECT MAX(b_price)
+                   FROM bids);
+
+  --For those who placed bids under $50,000, what is the email and driver's licnce of the person who placed a bid for a car with tinted windows
+  SELECT DISTINCT(p_email), p_license
+  FROM people,
+       bids,
+       extras,
+       vehicle
+  WHERE p_phone = b_phone AND
+        b_price < 50000 AND
+        ex_tint = 1 AND
+        ex_model = v_model;

@@ -4,12 +4,12 @@ import java.util.LinkedList;
 
 public class Main {
 
-    private static
-
-    Connection c = null;
+    private static Connection c = null;
     private static Statement s = null;
     private static boolean connected = false;
     private static boolean closing = false;
+    private static int bidID = 234;
+    private static int currPage = 1;
 
 
     public static void main(String[] args) {
@@ -23,14 +23,38 @@ public class Main {
     private static void displayMenu(int page) {
         System.out.println("Command List: ");
         if (!connected)
-            System.out.println("\t connect: Connect to hypercar table");
-        System.out.println("\t createAll: To create all tables");
-        System.out.println("\t create table: To create a table");
-        System.out.println("\t loadAll: To initialize all tables");
-        System.out.println("\t insert table: To insert to a table");
-        System.out.println("\t drop table: To drop a table");
-        System.out.println("\t dropAll: To drop a table");
-        System.out.println("\t #: Enter number to run a query ONLY 1-20 Permited");
+            System.out.println("\t connect: Connect to hypercar database");
+
+        if (page == 1) {
+            System.out.println("\t ----- SELECT MODE -----");
+            System.out.println("\t user: to see user Commands");
+            System.out.println("\t mng: to see full Commands");
+            //System.out.println("\t #: Enter number to run a query ONLY 1-20 Permited");
+        } else if (page == 2) {
+            System.out.println("----- USER MODE -----");
+            System.out.println("\t findMaker: List vehicles for maker");
+            System.out.println("\t costOver: List all makers with vehicles costing more than ?");
+            System.out.println("\t findPop: List manufacturer with most sales at a year ?");
+            System.out.println("\t placeBid: Places bid on specified car with plates");
+            System.out.println("\t countryFast: Lists names of country's with cars that go over 250 MPH");
+            System.out.println("\t findHighBidNum: Returns name and Phone number of highest Bidder");
+            System.out.println("\t findAvgCar: Lists all the maker and cylinders of all engines with hp ranging from AVG to MAX");
+
+        } else {
+            System.out.println("\t createAll: To create all tables");
+            System.out.println("\t create table: To create a table");
+            System.out.println("\t loadAll: To initialize all tables");
+            System.out.println("\t insert table: To insert to a table");
+            System.out.println("\t drop table: To drop a table");
+            System.out.println("\t dropAll: To drop a table");
+            System.out.println("\t findMaker: List vehicles for maker");
+            System.out.println("\t costOver: List all makers with vehicles costing more than ?");
+            System.out.println("\t findPop: List manufacturer with most sales at a year ?");
+            System.out.println("\t placeBid: Places bid on specified car with plates");
+            System.out.println("\t findHighBidNum: Returns name and Phone number of highest Bidder");
+            System.out.println("\t findAvgCar: Lists all the maker and cylinders of all engines with hp ranging from AVG to MAX");
+        }
+
         System.out.print("$ ");
     }
 
@@ -61,30 +85,67 @@ public class Main {
             case "createAll":
                 c = getConnection();
                 initializeTables();
-            case "1":
+                break;
+
+            case "countryFast":
                 c = getConnection();
+                try {
+                    countryFast();
+                } catch (SQLException e) {
+                    System.out.println("No data in tables");
+                    e.printStackTrace();
+                }
+                break;
 
+            case "findMaker":
+                System.out.print("Enter Desired Manufacturer: ");
+                try {
+                    searchCar(input.nextLine());
+                } catch (SQLException e) {
+                    System.out.println("Could not find Maker");
+                    e.printStackTrace();
+                }
                 break;
-            case "2":
+            case "costOver":
+                System.out.print("Costing more than: ");
+                try {
+                    findCostOver();
+                } catch (SQLException e) {
+                    System.out.println("Could not find manufacturer");
+                    e.printStackTrace();
+                }
+                break;
 
-                break;
-            case "find":
-                searchCar();
-                break;
-            case "4":
-
-                break;
-            case "5":
-
-                break;
-            case "6":
-
-                break;
             case "d":
                 c = getConnection();
                 //insertToTable("vehicle");
-                searchCar();
+                try {
+                    placeBid();
+                } catch (SQLException e) {
+
+                    e.printStackTrace();
+                }
                 break;
+            case "findPop":
+                c =  getConnection();
+                System.out.print("Car popular in year: ");
+                try {
+                    findPop();
+                } catch (SQLException e) {
+                    System.out.println("Unable to return results");
+                    e.printStackTrace();
+                }
+                break;
+            case "placeBid":
+                c = getConnection();
+                try {
+                    placeBid();
+                } catch (SQLException e) {
+                    System.out.println("Unable to place bid");
+                    e.printStackTrace();
+                }
+                break;
+
             case "loadAll":
                 c =getConnection();
                 loadData();
@@ -93,6 +154,22 @@ public class Main {
                 c =getConnection();
                 dropALLTables();
                 break;
+            case "findHighBidNum":
+                try {
+                    findHighBid();
+                } catch (SQLException e) {
+                    System.out.println("No bids");
+                    e.printStackTrace();
+                }
+                break;
+            case "user":
+                //displayMenu(2);
+                currPage = 2;
+                break;
+            case "mng":
+                //displayMenu(10000);
+                currPage = 1000;
+                    break;
             default:
                 System.out.println("Wrong Query Switch");
                 break;
@@ -101,7 +178,7 @@ public class Main {
         System.out.print("$ ");
         switch (input.nextLine()) {
             case "y":
-                displayMenu(1);
+                displayMenu(currPage);
                 runQuery(input.nextLine());
                 break;
             case "n":
@@ -123,6 +200,70 @@ public class Main {
         createTable("people");
         createTable("bids");
         System.out.println(" ");
+    }
+
+    private static void findAvgCar() throws SQLException {
+        s = getStatement();
+
+        String sql = " SELECT h_vin,\n" +
+                "        e_make,\n" +
+                "        e_cylinders,\n" +
+                "        h_topSpeed\n" +
+                "   FROM engine,\n" +
+                "        hypercars\n" +
+                "  WHERE h_engine = e_model AND\n" +
+                "        e_hp BETWEEN (\n" +
+                "                         SELECT AVG(e_hp)\n" +
+                "                           FROM engine\n" +
+                "                     )\n" +
+                "        AND (\n" +
+                "                SELECT MAX(e_hp)\n" +
+                "                  FROM engine\n" +
+                "            )\n" +
+                "  GROUP BY h_vin\n" +
+                "  ORDER BY h_topSpeed;";
+        ResultSet rs = s.executeQuery(sql);
+        System.out.println("List of countries");
+        while (rs.next()) {
+            System.out.println("Make: " + rs.getString("e_make"));
+            System.out.println("Vin: " + rs.getString("h_vin"));
+            System.out.println("Cylinders: "+ rs.getString("e_cylinders"));
+            System.out.println("Top Speed: "+ rs.getString("h_topSpeed"));
+        }
+    }
+
+    private static void findHighBid() throws SQLException {
+        s = getStatement();
+
+        String sql = "  SELECT DISTINCT(p_phone) as phoneNum, p_name \n" +
+                "  FROM people,\n" +
+                "       bids,\n" +
+                "       manufacturer,\n" +
+                "       vehicle\n" +
+                "  WHERE p_phone = b_phone AND \n" +
+                "        b_licensePlate = v_license AND \n" +
+                "        m_nation = \"GERMANY\" AND \n" +
+                "        b_price = (SELECT MAX(b_price)\n" +
+                "                   FROM bids);";
+        ResultSet rs = s.executeQuery(sql);
+        if (rs.next()) {
+            System.out.println(rs.getString("p_name") + "'s phone number  is " + rs.getString("phoneNum"));
+        }
+    }
+
+    private static void countryFast() throws SQLException {
+    s = getStatement();
+
+     String sql = "SELECT DISTINCT(m_nation) AS nation\n" +
+             "FROM manufacturer, vehicle, hypercars\n" +
+             "WHERE v_vin = h_vin AND\n" +
+             "      h_topSpeed > 250 and\n" +
+             "      m_name = v_make;";
+        ResultSet rs = s.executeQuery(sql);
+        System.out.println("List of countries");
+        while (rs.next()) {
+            System.out.println(rs.getString("nation"));
+        }
     }
 
     private static void loadData() {
@@ -474,7 +615,7 @@ public class Main {
 
         System.out.println("Loaded into manufacturer");
         sql = "INSERT INTO extras\n" +
-                "\t(ex_vin, ex_heated, ex_leather, ex_turbo, ex_spoiler, ex_tint, ex_convertible) VALUES\n" +
+                "\t(ex_model, ex_heated, ex_leather, ex_turbo, ex_spoiler, ex_tint, ex_convertible) VALUES\n" +
                 "\t(\"Legend\", 0, 0, 0, 0, 0, 1),\n" +
                 "\t(\"M Class\", 0, 0, 1, 1, 0, 0),\n" +
                 "\t(\"Ram Pickup\", 0, 0, 0, 1, 0, 1),\n" +
@@ -603,38 +744,93 @@ public class Main {
 
     }
 
-    private static void runQ(String sql) {
+    private static void placeBid() throws SQLException {
+        Scanner input = new Scanner(System.in);
+        String plates, name;
+        name = plates = null;
+        boolean stop = false;
+        String sql = "INSERT INTO bids\n" +
+                "  \t(b_ID, b_price, b_licensePlate, b_name, b_phone) VALUES\n" +
+                "    (" + bidID++ +", ?, ?, ?, ?);";
+        PreparedStatement pstmt = prepStatement(sql);
+
+        System.out.print("Bid Ammount: ");
+        if (!handlePrepDouble(pstmt, input, 1)) {
+            stop = true;
+            System.out.print("");
+        }
+
+
+        if (!stop) {
+            System.out.print("License Plates: ");
+            plates = input.nextLine();
+            plates = input.nextLine();
+            pstmt.setString(2, plates);
+
+        }
+        if (!stop) {
+            System.out.print("Your Name: ");
+            name = input.nextLine();
+            pstmt.setString(3, name);
+        } else {
+            stop =  true;
+        }
+
+        if (!stop) {
+            System.out.print("Enter Phone Number: ");
+            if (handlePrepDouble(pstmt, input, 4)) {
+                System.out.println("Bid for " + plates + " placed");
+                pstmt.executeUpdate();
+            }
+        }
+
+
 
     }
 
-    private static void searchCar() {
-        System.out.print("Desired Manufacturer: ");
+    private static void findPop() throws SQLException {
         Scanner input = new Scanner(System.in);
-        String sql = "SELECT v_vin FROM vehicle WHERE v_make = ?;";
-
+        String sql = "SELECT DISTINCT(m_name)  AS manufacturer\n" +
+                "FROM manufacturer, vehicle\n" +
+                "WHERE v_year < ? AND\n" +
+                "      m_sales = (SELECT MAX(m_sales)\n" +
+                "                 FROM manufacturer);";
         PreparedStatement pstmt = prepStatement(sql);
-        String maker = input.nextLine();
-        try {
-            pstmt.setString(1, maker);
-        } catch (SQLException e) {
-            System.out.println("Could not find maker");
-            e.printStackTrace();
+        if(handlePrepDouble(pstmt, input, 1)) {
+            ResultSet rs = pstmt.executeQuery();
+            System.out.println("Found the following manufacturers");
+            while (rs.next()) {
+                System.out.println("Found " + rs.getString("manufacturer"));
+            }
+        }
+    }
+
+    private static void findCostOver() throws SQLException {
+        Scanner input = new Scanner(System.in);
+        String sql = "SELECT DISTINCT(m_name) AS manufacturer\n" +
+                "  FROM vehicle,\n" +
+                "       manufacturer\n" +
+                " WHERE v_make = m_name AND\n" +
+                "       v_price > ?;";
+        PreparedStatement pstmt = prepStatement(sql);
+        if(handlePrepDouble(pstmt, input, 1)) {
+            ResultSet rs = pstmt.executeQuery();
+            System.out.println("Found the following manufacturers");
+            while (rs.next()) {
+                System.out.println("Found " + rs.getString("manufacturer"));
+            }
+        }
+    }
+
+    private static void searchCar(String maker) throws SQLException {
+        String sql = "SELECT v_make, v_model, v_price, v_license FROM vehicle WHERE v_make LIKE ?;";
+        PreparedStatement pstmt = prepStatement(sql);
+        pstmt.setString(1, maker);
+        ResultSet rs = pstmt.executeQuery();
+        while (rs.next()) {
+            System.out.println("Found " + rs.getString("v_make") + " " + rs.getString("v_model") + " for $" + rs.getString("v_price") + " with license plate number " + rs.getString("v_license"));
         }
 
-        ResultSet rs = null;
-        try {
-            rs = pstmt.executeQuery(sql);
-        } catch (SQLException e) {
-            System.out.println("Could not fetch results");
-            e.printStackTrace();
-        }
-        try {
-            while (rs.next()) {
-                  System.out.println(rs.getString("v_vin"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     private static void createTable(String tableName) {
@@ -705,7 +901,7 @@ public class Main {
                 break;
             case "extras":
                 sql = "CREATE TABLE IF NOT EXISTS extras (\n" +
-                        "    ex_vin         VARCHAR (40)   NOT NULL,\n" +
+                        "    ex_model         VARCHAR (40)   NOT NULL,\n" +
                         "    ex_heated      BOOLEAN        NOT NULL,\n" +
                         "    ex_leather     BOOLEAN        NOT NULL,\n" +
                         "    ex_turbo       BOOLEAN        NOT NULL,\n" +
@@ -1012,7 +1208,7 @@ public class Main {
         }
 
         try {
-            System.out.println("Establishing Connection");
+            //System.out.println("Establishing Connection");
             return DriverManager.getConnection(url);
         } catch (SQLException e) {
             System.out.println("Failed to get Connection");
