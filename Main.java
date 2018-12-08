@@ -1,6 +1,5 @@
 import java.sql.*;
 import java.util.Scanner;
-import java.util.LinkedList;
 
 public class Main {
 
@@ -9,7 +8,7 @@ public class Main {
     private static boolean connected = false;
     private static boolean closing = false;
     private static int bidID = 234;
-    private static int currPage = 1;
+    private static int userCode = 1;
 
 
     public static void main(String[] args) {
@@ -22,8 +21,8 @@ public class Main {
 
     private static void displayMenu(int page) {
         System.out.println("Command List: ");
-        if (!connected)
-            System.out.println("\t connect: Connect to hypercar database");
+        //if (page == 1000)
+            //System.out.println("\t connect: Connect to hypercar database");
 
         if (page == 1) {
             System.out.println("\t ----- SELECT MODE -----");
@@ -40,17 +39,20 @@ public class Main {
             System.out.println("\t findHighBidNum: Returns name and Phone number of highest Bidder");
             System.out.println("\t findAvgCar: Lists all the maker and cylinders of all engines with hp ranging from AVG to MAX");
 
-        } else {
+        } else if (page == 1000){
+            System.out.println("----- MNG MODE -----");
             System.out.println("\t createAll: To create all tables");
             System.out.println("\t create table: To create a table");
             System.out.println("\t loadAll: To initialize all tables");
             System.out.println("\t insert table: To insert to a table");
             System.out.println("\t drop table: To drop a table");
             System.out.println("\t dropAll: To drop a table");
+
             System.out.println("\t findMaker: List vehicles for maker");
             System.out.println("\t costOver: List all makers with vehicles costing more than ?");
             System.out.println("\t findPop: List manufacturer with most sales at a year ?");
             System.out.println("\t placeBid: Places bid on specified car with plates");
+            System.out.println("\t countryFast: Lists names of country's with cars that go over 250 MPH");
             System.out.println("\t findHighBidNum: Returns name and Phone number of highest Bidder");
             System.out.println("\t findAvgCar: Lists all the maker and cylinders of all engines with hp ranging from AVG to MAX");
         }
@@ -61,6 +63,7 @@ public class Main {
     private static void runQuery(String s) {
         Scanner input = new Scanner(System.in);
         String tableName;
+
         switch (s) {
             case "connect":
                 c = getConnection();
@@ -164,29 +167,41 @@ public class Main {
                 break;
             case "user":
                 //displayMenu(2);
-                currPage = 2;
+                if (userCode == 1) {
+                    userCode = 2;
+                    displayMenu(2);
+                } else if (userCode == 2){
+                    System.out.println("You're already a user");
+                    System.out.print("$ ");
+                    runQuery(input.nextLine());
+                }
+
+
+
                 break;
             case "mng":
-                //displayMenu(10000);
-                currPage = 1000;
+                if (userCode == 1) {
+                    userCode = 1000;
+                    displayMenu(1000);
+                } else if (userCode == 1000) {
+                    System.out.println("Log out first using command logout");
+                    System.out.print("$ ");
+                }
+
                     break;
+            case "logout":
+                userCode = 1;
+                displayMenu(1);
+                break;
             default:
                 System.out.println("Wrong Query Switch");
                 break;
         }
-        System.out.println("Do you wanna run another query: y/n");
-        System.out.print("$ ");
-        switch (input.nextLine()) {
-            case "y":
-                displayMenu(currPage);
-                runQuery(input.nextLine());
-                break;
-            case "n":
-                break;
+        //System.out.println("Do you wanna run another query: y/n");
+        //System.out.print("$ ");
+        if (userCode != 0)
+            runQuery(input.nextLine());
 
-            default:
-                break;
-        }
     }
     private static void initializeTables() {
         System.out.print("Successfully created tables: ");
